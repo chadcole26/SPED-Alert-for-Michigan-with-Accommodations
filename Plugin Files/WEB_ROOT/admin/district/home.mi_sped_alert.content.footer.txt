@@ -1,0 +1,12 @@
+<!-- Plugin Credit and Acknowledgement:
+  This alert is an update of Eric Krebill's Simple SpEd Alert for MI Schools V2.3
+  https://support.powerschool.com/exchange/view.action?download.id=694 
+  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
+  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+-->
+<!-- This script adds the MI SpEd Alert Image Selector in the Plugins area of the District Setup page -->
+<script type="text/javascript">
+  $j(document).ready( function() {
+    $j('#table_id_plugins > tbody').append('<tr><td><a href="/admin/district/mi_sped_alert_image_selector.html">MI SpEd Alert Image Selector</a></td><td>Select the image you would like to show when the checkbox to send special education information to the state is checked on the students state reporting page.</td></tr>');
+  });
+</script>

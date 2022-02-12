@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<!-- Plugin Credit and Acknowledgement:
+  This alert is an update of Eric Krebill's Simple SpEd Alert for MI Schools V2.3
+  https://support.powerschool.com/exchange/view.action?download.id=694 
+  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
+  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+-->
+		<title>MI SpEd Alert Image Selector</title>
+		<!-- required scripts -->
+		 ~[wc:commonscripts] 
+		<!-- Required style sheets: screen.css, and print.css --> 
+		 <link href="/images/css/screen.css" rel="stylesheet" media="screen">
+		 <link href="/images/css/print.css" rel="stylesheet" media="print">
+		 <style>
+			th, td {
+				text-align: center;
+				vertical-align: middle;
+				width: 75px;
+			}
+			
+			
+			.floatdiv {
+				display: inline-block;
+				vertical-align: top;
+				width: 250px;
+			}
+			
+			.container {
+				vertical-align: top;
+				overflow: hidden;
+			}
+		</style>
+	</head> 
+	<body>
+		<form action="/~[self.page]?action=success" method="POST">
+		 ~[wc:admin_header_css] 
+		<!-- breadcrumb start -->
+		<a href="/admin/home.html" target="_top">~[text:psx.html.admin_district.misc-district.start_page]</a> &gt; <a href="/admin/district/home.html" target="_top">~[text:psx.html.admin_district.misc-district.district_setup]</a> &gt;&nbsp;MI SpEd Alert Image Selector
+		<!-- breadcrumb end -->
+		<!-- start of main menu and content --> 
+		 ~[wc:admin_navigation_css] 
+		<!-- Start of Page -->
+		<h1>MI SpEd Alert Image Selector</h1>
+		~[if.gpv.action=success]<div class="feedback-confirm">Successfully recorded changes</div>[/if]
+		<!-- start of content area --> 
+		<div class="box-round">
+			<h2>Select an Image</h2>
+			<p>The image you select below will show up on the following pages when the checkbox indicating Special Education information is being sent to the state of Michigan is checked on the student's state reporting pages:</p>
+			<ul>
+				<li>Student pages for administrators</li>
+				<li>The attendance page administrators access with the chair from the Teacher Schedules page</li>
+				<li>Student pages for teachers, in the backpack</li>
+				<li>The attendance page teachers access with the chair on their start page</li>
+			</ul>
+			<div class="container">
+				<div class="floatdiv">
+					<table>
+						<thead>
+							<tr>
+								<th>Alert Image</th>
+								<th>Use for MI SpEd Alert</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><img src="/images/misped/alert_misped01.svg" width="50" height="50" alt="MI SpEd Alert Image 1" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped01" id="misped01"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped02.svg" width="50" height="50" alt="MI SpEd Alert Image 2" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped02" id="misped02"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped03.svg" width="50" height="50" alt="MI SpEd Alert Image 3" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped03" id="misped03"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped04.svg" width="50" height="50" alt="MI SpEd Alert Image 4" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped04" id="misped04"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="floatdiv">
+					<table>
+						<thead>
+							<tr>
+								<th>Alert Image</th>
+								<th>Use for MI SpEd Alert</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><img src="/images/misped/alert_misped05.svg" width="50" height="50" alt="MI SpEd Alert Image 5" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped05" id="misped05"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped06.svg" width="50" height="50" alt="MI SpEd Alert Image 6" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped06" id="misped06"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped07.svg" width="50" height="50" alt="MI SpEd Alert Image 7" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped07" id="misped07"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped08.svg" width="50" height="50" alt="MI SpEd Alert Image 8" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped08" id="misped08"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="floatdiv">
+					<table>
+						<thead>
+							<tr>
+								<th>Alert Image</th>
+								<th>Use for MI SpEd Alert</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><img src="/images/misped/alert_misped09.svg" width="50" height="50" alt="MI SpEd Alert Image 9" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped09" id="misped09"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped10.svg" width="50" height="50" alt="MI SpEd Alert Image 10" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped10" id="misped10"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped11.svg" width="50" height="50" alt="MI SpEd Alert Image 11" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped11" id="misped11"></td>
+							</tr>
+							<tr>
+								<td><img src="/images/misped/alert_misped12.svg" width="50" height="50" alt="MI SpEd Alert Image 12" /></td>
+								<td><input type="radio" name="[pref]mi_sped_alert_image" value="alert_misped12" id="misped12"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="button-row">
+				<input type="hidden" name="ac" value="prim">~[submitbutton]
+			</div>
+
+		 </div> 
+		 </form>
+		<!-- end of content area --> 
+		 ~[wc:admin_footer_css] 
+	</body> 
+</html>

@@ -1,0 +1,30 @@
+<!-- Plugin Credit and Acknowledgement:
+  This alert is an update of Eric Krebill's Simple SpEd Alert for MI Schools V2.3
+  https://support.powerschool.com/exchange/view.action?download.id=694 
+  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
+  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+-->
+
+~[if#misped.~[gpv:pagetype]=meeting]
+<!-- START MI SpEd Alert -->
+<script language="javascript">
+  $j(function(){
+    var miSpEdalertRows = {
+		~[tlist_sql;
+		select cc.id, s.dcid
+		from cc cc
+		join students s on s.id = cc.studentid
+		join s_mi_stu_gc_x sr on sr.studentsdcid = s.dcid
+		where cc.sectionid = ~(gpv.sectionid;sqlText)
+		 and to_date('~(gpv.att_date;sqlText)','~[datetext:mmddyyyy]') between cc.dateenrolled and cc.dateleft-1
+		 and sr.flagSpecEd = 1
+		]"~(1)":"~(2)",[/tlist_sql]"":""
+	};
+    $j.each(miSpEdalertRows, function(ccid, studcid) {
+	  $j('tr[id=ccid_' + ccid + '] td:eq(1)').append('&nbsp;<a href="/admin/alerts/MI_SPED_ALERT.html?frn=001'+ studcid +'" class="dialogAlert"  title="Special Ed Services Alert"><img src="/images/misped/~[displaypref:mi_sped_alert_image].svg" alt="SpEd" width="18" height="18" style="vertical-align: text-bottom;"></a>');
+    });
+    $j('a.dialogAlert').live('click',psDialog);
+  });
+</script>
+<!-- END MI SpEd Alert -->
+[/if#misped]

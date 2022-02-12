@@ -1,0 +1,7 @@
+<!-- Plugin Credit and Acknowledgement:
+  This alert is an update of Eric Krebill's Simple SpEd Alert for MI Schools V2.3
+  https://support.powerschool.com/exchange/view.action?download.id=694 
+  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
+  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+-->
+~[if.~([Students.S_MI_STU_GC_X]flagSpecEd)=1]<a title='SpEd' id='MI_SpEd_alert' href='/teachers/alerts/MI_SPED_ALERT.html?frn=~(frn)' class='dialogM'><img src='/images/misped/~[displaypref:mi_sped_alert_image].svg' alt='SpEd' width="18" height="18" /></a>[/if]
