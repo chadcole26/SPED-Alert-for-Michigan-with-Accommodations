@@ -7,6 +7,7 @@
 		<!-- Required style sheets: screen.css, and print.css -->
 		<link href="/images/css/screen.css" rel="stylesheet" media="screen">
 		<link href="/images/css/print.css" rel="stylesheet" media="print">
+
 	</head> 
 	<body> 
 		~[wc:admin_header_frame_css]
@@ -21,18 +22,16 @@
 			~[if.gpv.changesSaved=true]<div class="feedback-confirm">~[text:psx.common.changes_recorded]</div>[/if]
 			<div class="box-round">
 			    <h2>Special Education Accommodations Sheet</h2>
-			    <div id="headerIntroInfo">
 			    
-					<!-- This is a standards driven table. there are no styles, borders, widths and there is a header row--> 
-					<table border="0" cellpadding="0" cellspacing="0" class="descLinkList" id="MI_SpEdInfo"> 
+					<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
 						<thead> 
 							<tr> 
-								<th>Information from Special Education State Reporting Page</th> 
+								<th style="text-align:left;">Information from Special Education State Reporting Page</th> 
 							</tr> 
 						</thead> 
 						<tfoot> 
 							<tr> 
-								<td><em>This data is maintained on the Michigan state reporting pages.</td> 
+								<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages.</td> 
 							</tr> 
 						</tfoot> 
 						<tbody> 
@@ -48,14 +47,49 @@
 						</tbody> 
 					</table> 			    
 
-				</div>
-				<div class="accordion" id="sped_accom">
+				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a>
+		
+				~[tlist_sql;
+					SELECT
+						ma.accommodation,
+						ma.startdate,
+						ma.enddate,
+						ma.condition,
+						ma.frequency,
+						ma.location
+					FROM u_misped_accommodations ma
+					JOIN students s
+						ON ma.studentsdcid = s.dcid
+					WHERE s.id = ~(curstudid)
+					;nonemessage=<table><tr><td colspan="100%">There are no accommodations recorded for this student.</td></tr></table>]
+				<table class="linkDescList">
+					<tr>
+						<td class="bold" colspan="2">Accommodation:</td>
+						<td colspan="2">~(ma.accommodation)</td>
+					</tr>
+					<tr>
+						<td class="bold">Start Date:</td>
+						<td>~(ma.startdate)</td>
+						<td class="bold">End Date:</td>
+						<td>~(ma.enddate)</td>
+					</tr>
+					<tr>
+						<td class="bold" colspan="2">Condition:</td>
+						<td colspan="2">~(ma.condition)</td>
+					</tr>
+					<tr>
+						<td class="bold" colspan="2">Frequency:</td>
+						<td colspan="2">~(ma.frequency)</td>
+					</tr>
+					<tr>
+						<td class="bold" colspan="2">Location:</td>
+						<td colspan="2">~(ma.location)</td>
+					</tr>
+				</table>
+				[/tlist_sql]
 					
 				</div>
-		
-				<div class="button-row">
-					<input type="hidden" name="ac" value="prim">~[submitbutton]
-				</div>
+
 			</div>
 		</form>
 		<!-- end of content area -->
