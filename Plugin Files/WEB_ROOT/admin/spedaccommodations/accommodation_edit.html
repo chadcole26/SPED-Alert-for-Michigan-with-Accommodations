@@ -6,6 +6,20 @@
   ~[wc:commonscripts]
   <link href="/images/css/screen.css" rel="stylesheet" media="screen">
   <link href="/images/css/print.css" rel="stylesheet" media="print">
+  <script type="text/javascript">
+		$j(document).ready(function() {
+			$j('#newlastuser').val($j('#curuser').val())
+			$j('#archive').change(function() {
+				if ($j('#archive').prop('checked') == true) {
+					$j('#userwarning').show();
+					$j('#archivedby').val($j('#curuser').val());
+				} else if ($j('#archive').prop('checked') == false){
+					$j('#userwarning').hide();
+					$j('#archivedby').val('');
+				};
+			});	
+		});
+	</script>
 </head>
 
 <body>
@@ -45,7 +59,7 @@
 							<td><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
 						</tr> 
 						<tr> 
-							<td><b>Secondary Disability</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
+							<td><b>Secondary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
 						</tr> 
 					</tbody> 
 				</table>    
@@ -53,10 +67,10 @@
 				~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:~(gpv.editid)]
 				<table id="newaccommodation" class="linkDescList">
 					<tr>
-						<td class="bold" style="width:20%;" >Accommodation:</td>
+						<td class="bold" style="width:20%;">Accommodation:</td>
 						<td>
 							<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80"></textarea>
-							<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEDBY" value="~[x:username;firstlast]">
+							<input type="hidden" id="newlastuser" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEBY" value="">
 						</td>
 					</tr>
 					<tr>
@@ -90,17 +104,28 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">This record was last updated by ~([U_MISPED_ACCOMMODATIONS]LASTUPDATEDBY)</td>
+						<td colspan="2" style="text-align:right;">
+							<b>Archive this record?</b>&nbsp;
+							<input type="checkbox" name="[U_MISPED_ACCOMMODATIONS]ARCHIVED" value="" id="archive">
+							<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]ARCHIVEDBY" value="" id="archivedby"><br>
+							<span id="userwarning" style="display:none;"><em>Your user information will be recorded.</em></span>
+						</td>
 					</tr>
+					<tr>
+						<td colspan="2">This accommodation was created by ~([U_MISPED_ACCOMMODATIONS]CREATEDBY)</td>
+					</tr>
+					<tr>
+						<td colspan="2">This accommodation was last updated by ~([U_MISPED_ACCOMMODATIONS]LASTUPDATEBY)</td>
+					</tr>
+					~[if#archived.~([U_MISPED_ACCOMMODATIONS]ARCHIVEDBY)=1]
+					<tr>
+						<td colspan="2">This accommodation was archived by ~([U_MISPED_ACCOMMODATIONS]ARCHIVEDBY)</td>
+					</tr>
+					[/if#archived]
 				</table>      
 
         <div class="button-row" id="submitdiv">
-          <!--<a id="deleteaddress" class="button">Delete Previous Address</a>-->
-          <!--<a id="deleteaddresscancel" class="button" style="display: none" href="/admin/students/addresses.html?frn=~(studentfrn)">Cancel Delete</a>-->
-          <!--<a id="deleteaddressconfirm" class="button" style="display: none;background-color: Orange">Confirm Delete</a>-->
           <input type="hidden" name="ac" value="prim">~[submitbutton]
-          <!--<input type="hidden" id="delete_test" value="">-->
-          <!--<input type="hidden" name="DD-U_MISPED_ACCOMMODATIONS.id:~(gpv.editid)" value="1" id="deleteconfirmed">-->
         </div>
 
       </div>
@@ -108,8 +133,11 @@
     <!-- end of content area -->
 
   </form>
-
+  
+  <input type="hidden" id="curuser" value="~[x:username;firstlast]">
+	
   ~[wc:admin_footer_frame_css]
 
 </body>
+
 </html><!-- end right frame -->

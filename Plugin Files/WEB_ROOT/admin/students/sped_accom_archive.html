@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Special Education Accommodations</title>
+		<title>Archived Special Education Accommodations</title>
 		<!-- required scripts -->
 		~[wc:commonscripts] 
 		<!-- Required style sheets: screen.css, and print.css -->
 		<link href="/images/css/screen.css" rel="stylesheet" media="screen">
 		<link href="/images/css/print.css" rel="stylesheet" media="print">
-		<script type="text/javascript">
-			$j(document).ready(function () {
-				if ($j('#archive_count').val() != 0) {
-					$j('#archivebutton').show();
-				}
-			});
-	</script>
 
 	</head> 
 	<body> 
@@ -23,12 +16,12 @@
 		<!-- breadcrumb end -->
 		~[wc:admin_navigation_frame_css]
 		<!-- start of main menu and content -->
-		~[wc:title_student_begin_css]Special Education Accommodations~[wc:title_student_end_css]
+		~[wc:title_student_begin_css] Archived Special Education Accommodations~[wc:title_student_end_css]
 		<form action="/~[self.page]?frn=~(studentfrn)&changesSaved=true" method="POST">
 			<!-- start of content area -->
 			~[if.gpv.changesSaved=true]<div class="feedback-confirm">~[text:psx.common.changes_recorded]</div>[/if]
 			<div class="box-round">
-			    <h2>Special Education Accommodations</h2>
+			    <h2>Archived Special Education Accommodations</h2>
 			    
 					<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
 						<thead> 
@@ -53,9 +46,6 @@
 							</tr> 
 						</tbody> 
 					</table> 			    
-
-				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a>&nbsp;&nbsp;<a href="/admin/students/sped_accom_archive.html?frn=~(studentfrn)&no-store-lp" class="button" style="display:none;" id="archivebutton">View Archived Accommodations</a>
-				<br /><br />
 						
 				~[tlist_sql;
 					SELECT
@@ -72,14 +62,14 @@
 					JOIN students s
 						ON ma.studentsdcid = s.dcid
 					WHERE s.id = ~(curstudid)
-						AND ma.archived IS NULL
+						AND ma.archived IS NOT NULL
 					ORDER BY ma.startdate asc, ma.enddate asc
-					;nonemessage=<table><tr><td colspan="100%">There are no active accommodations recorded for this student.</td></tr></table>]
+					;nonemessage=<table><tr><td colspan="100%">There are no archived accommodations recorded for this student.</td></tr></table>]
 				<table class="linkDescList">
 					<thead>
 						<tr>
 							<th>Accommodation Information</th>
-							<th style="text-align:right;"><a href="/admin/spedaccommodations/accommodation_edit.html?frn=001~(ma.studentsdcid)&studentsdcid=~(s.dcid)&editid=~(ma.id)&no-store-lp">Edit/Archive Accommodation</a></th>
+							<th style="text-align:right;"><a href="/admin/spedaccommodations/accommodation_edit.html?frn=001~(ma.studentsdcid)&studentsdcid=~(s.dcid)&editid=~(ma.id)&no-store-lp">Edit Archived Accommodation</a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -110,18 +100,6 @@
 					</tbody>
 				</table>
 				[/tlist_sql]
-
-				<div id="archive_test" style="display:none;">
-					~[tlist_sql;
-						SELECT COUNT (*)
-						FROM u_misped_accommodations ma
-						JOIN students s
-							ON ma.studentsdcid = s.dcid
-						WHERE s.id = ~(curstudid)
-							AND ma.archived IS NOT NULL]
-						<input type="hidden" id="archive_count" value="~(count)">
-					[/tlist_sql]
-				</div>
 					
 				</div>
 
