@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Special Education Accommodations</title>
+		<!-- required scripts -->
+		~[wc:commonscripts] 
+		<!-- Required style sheets: screen.css, and print.css -->
+		<link href="/images/css/screen.css" rel="stylesheet" media="screen">
+		<link href="/images/css/print.css" rel="stylesheet" media="print">
+	</head> 
+	<body> 
+		~[wc:admin_header_frame_css]
+		<!-- breadcrumb start -->
+		<a href="/admin/home.html" target="_top">Start Page</a> &gt; <a href="/admin/students/home.html?selectstudent=nosearch" target="_top">Student Selection</a> &gt; SPED Accommodations
+		<!-- breadcrumb end -->
+		~[wc:admin_navigation_frame_css]
+		<!-- start of main menu and content -->
+		~[wc:title_student_begin_css]Special Education Accommodations~[wc:title_student_end_css]
+		<form action="/~[self.page]?frn=~(studentfrn)&changesSaved=true" method="POST">
+			<!-- start of content area -->
+			~[if.gpv.changesSaved=true]<div class="feedback-confirm">~[text:psx.common.changes_recorded]</div>[/if]
+			<div class="box-round">
+			    <h2>Special Education Accommodations Sheet</h2>
+			    <div id="headerIntroInfo">
+			    
+					<!-- This is a standards driven table. there are no styles, borders, widths and there is a header row--> 
+					<table border="0" cellpadding="0" cellspacing="0" class="descLinkList" id="MI_SpEdInfo"> 
+						<thead> 
+							<tr> 
+								<th>Information from Special Education State Reporting Page</th> 
+							</tr> 
+						</thead> 
+						<tfoot> 
+							<tr> 
+								<td><em>This data is maintained on the Michigan state reporting pages.</td> 
+							</tr> 
+						</tfoot> 
+						<tbody> 
+							<tr> 
+								<td><b>Include Special Education Data in MSDS Reporting?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSpecEd);1;Yes;True;Yes;0;No;False;No;;No)</td> 
+							</tr> 
+							<tr> 
+								<td><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
+							</tr> 
+							<tr> 
+								<td><b>Secondary Disability</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
+							</tr> 
+						</tbody> 
+					</table> 			    
+
+				</div>
+				<div class="accordion" id="sped_accom">
+					
+				</div>
+		
+				<div class="button-row">
+					<input type="hidden" name="ac" value="prim">~[submitbutton]
+				</div>
+			</div>
+		</form>
+		<!-- end of content area -->
+		~[wc:admin_footer_frame_css]
+	</body> 
+</html>
