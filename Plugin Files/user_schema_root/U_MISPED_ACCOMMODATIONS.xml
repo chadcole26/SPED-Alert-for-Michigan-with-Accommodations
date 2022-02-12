@@ -5,11 +5,15 @@
 	xsi:schemaLocation="http://www.powerschool.com psextension.xsd">
     <extensionname>U_MISPED_ACCOMMODATIONS</extensionname>
     <extendedTable coreTable="Students" dbTableName="U_MISPED_ACCOMMODATIONS" childName="U_MISPED_ACCOMMODATIONS" comment="Michigan Special Education Alert Accommodations">
-        <field name="CONDITION" type="String" length="4000" comment="Special Education Accommodation Condition"/>
-        <field name="ENDDATE" type="Date" comment="Special Education Accommodation End Date"/>
         <field name="ACCOMMODATION" type="String" length="4000" comment="Special Education Accommodation"/>
+        <field name="ARCHIVED" type="Double" comment="Special Education Accommodation Archived Flag"/>
+        <field name="ARCHIVEDBY" type="String" length="4000" comment="Special Education Accommodation Archive By User Info"/>
+        <field name="CONDITION" type="String" length="4000" comment="Special Education Accommodation Condition"/>
+        <field name="CREATEDBY" type="String" length="4000" comment="Special Education Accommodation Created By User Info"/>
+        <field name="ENDDATE" type="Date" comment="Special Education Accommodation End Date"/>
+        <field name="FREQUENCY" type="String" length="4000" comment="Special Education Accommodation Frequency"/>
+        <field name="LASTUPDATEBY" type="String" length="4000" comment="Special Education Accommodation Laste Update By User Info"/>
         <field name="LOCATION" type="String" length="4000" comment="Special Education Accommodation Location"/>
         <field name="STARTDATE" type="Date" comment="Special Education Accommodation Start Date"/>
-        <field name="FREQUENCY" type="String" length="4000" comment="Special Education Accommodation Frequency"/>
     </extendedTable>
 </psExtension>

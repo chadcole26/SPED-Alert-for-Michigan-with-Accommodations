@@ -31,7 +31,7 @@
 						</thead> 
 						<tfoot> 
 							<tr> 
-								<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages.</td> 
+								<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages and should be updated there.</em></td> 
 							</tr> 
 						</tfoot> 
 						<tbody> 
@@ -47,13 +47,16 @@
 						</tbody> 
 					</table> 			    
 
-				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a>
-		
+				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a><br /><br />
+						
 				~[tlist_sql;
 					SELECT
+						ma.studentsdcid,
+						s.dcid,
+						ma.id,
 						ma.accommodation,
-						ma.startdate,
-						ma.enddate,
+						TO_CHAR(ma.startdate, 'mm/dd/yyyy') as startdate,
+						TO_CHAR(ma.enddate, 'mm/dd/yyyy') as enddate,
 						ma.condition,
 						ma.frequency,
 						ma.location
@@ -61,30 +64,42 @@
 					JOIN students s
 						ON ma.studentsdcid = s.dcid
 					WHERE s.id = ~(curstudid)
+						AND ma.archived != 1
+					ORDER BY ma.startdate asc, ma.enddate asc
 					;nonemessage=<table><tr><td colspan="100%">There are no accommodations recorded for this student.</td></tr></table>]
 				<table class="linkDescList">
-					<tr>
-						<td class="bold" colspan="2">Accommodation:</td>
-						<td colspan="2">~(ma.accommodation)</td>
-					</tr>
-					<tr>
-						<td class="bold">Start Date:</td>
-						<td>~(ma.startdate)</td>
-						<td class="bold">End Date:</td>
-						<td>~(ma.enddate)</td>
-					</tr>
-					<tr>
-						<td class="bold" colspan="2">Condition:</td>
-						<td colspan="2">~(ma.condition)</td>
-					</tr>
-					<tr>
-						<td class="bold" colspan="2">Frequency:</td>
-						<td colspan="2">~(ma.frequency)</td>
-					</tr>
-					<tr>
-						<td class="bold" colspan="2">Location:</td>
-						<td colspan="2">~(ma.location)</td>
-					</tr>
+					<thead>
+						<tr>
+							<th>Accommodation Information</th>
+							<th style="text-align:right;"><a href="/admin/spedaccommodations/accommodation_edit.html?frn=001~(ma.studentsdcid)&studentsdcid=~(s.dcid)&editid=~(ma.id)&no-store-lp">Edit/Archive Accommodation</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="bold" style="width:20%;">Accommodation:</td>
+							<td>~(ma.accommodation)</td>
+						</tr>
+						<tr>
+							<td class="bold">Start Date:</td>
+							<td>~(ma.startdate)</td>
+						</tr>
+						<tr>
+							<td class="bold">End Date:</td>
+							<td>~(ma.enddate)</td>
+						</tr>
+						<tr>
+							<td class="bold">Condition:</td>
+							<td>~(ma.condition)</td>
+						</tr>
+						<tr>
+							<td class="bold">Frequency:</td>
+							<td>~(ma.frequency)</td>
+						</tr>
+						<tr>
+							<td class="bold">Location:</td>
+							<td>~(ma.location)</td>
+						</tr>
+					</tbody>
 				</table>
 				[/tlist_sql]
 					

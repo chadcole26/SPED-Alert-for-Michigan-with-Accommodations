@@ -2,7 +2,7 @@
 <html>
 <!-- start right frame -->
 <head>
-  <title>Add Accommodation</title>
+  <title>Add Special Education Accommodation</title>
   ~[wc:commonscripts]
   <link href="/images/css/screen.css" rel="stylesheet" media="screen">
   <link href="/images/css/print.css" rel="stylesheet" media="print">
@@ -56,7 +56,8 @@
 				<tr>
 					<td class="bold" style="width:20%;" >Accommodation:</td>
 					<td>
-						<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="50"></textarea>
+						<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80"></textarea>
+						<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]CREATEDBY" value="~[x:username;firstlast]">
 					</td>
 				</tr>
 				<tr>
@@ -74,19 +75,19 @@
 				<tr>
 					<td class="bold">Condition:</td>
 					<td>
-						<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION"></textarea>
+						<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td class="bold">Frequency:</td>
 					<td>
-						<textarea id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY"></textarea>
+						<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40">
 					</td>
 				</tr>
 				<tr>
 					<td class="bold">Location:</td>
 					<td>
-						<textarea id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION"></textarea>
+						<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40">
 					</td>
 				</tr>
 			</table>
