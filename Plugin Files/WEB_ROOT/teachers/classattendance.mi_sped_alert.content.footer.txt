@@ -20,7 +20,7 @@
 		]"~(1)":"~(2)",[/tlist_sql]"":""
 	};
     $j.each(miSpEdalertRows, function(ccid, studcid) {
-	  $j('tr[id=ccid_' + ccid + '] td:eq(1)').append('<a href="/teachers/alerts/MI_SPED_ALERT.html?frn=001'+ studcid +'" class="dialogAlert"  title="Special Ed Services Alert"><img src="/images/misped/~[displaypref:mi_sped_alert_image].svg" alt="SpEd" width="18" height="18" style="vertical-align: text-bottom;"></a>');
+	  $j('tr[id=ccid_' + ccid + '] td:eq(1)').append('<a href="/teachers/alerts/MI_SPED_ALERT.html?frn=001'+ studcid +'" class="dialogR"  title="Special Education Alert w/Accommodations"><img src="/images/misped/~[displaypref:mi_sped_alert_image].svg" alt="SpEd" width="18" height="18" style="vertical-align: text-bottom;"></a>');
     });
     $j('a.dialogAlert').live('click',psDialog);
   });

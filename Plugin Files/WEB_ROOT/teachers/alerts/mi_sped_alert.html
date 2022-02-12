@@ -9,5 +9,53 @@
   <div class="alertContent">
     <p class="alertHeader">~(studentname)</p>
     <p>The checkbox indicating Special Education information is being reported to the State of Michigan for this student is checked on the state reporting screen for Special Education.</p>
+				~[tlist_sql;
+					SELECT
+						ma.accommodation,
+						TO_CHAR(ma.startdate, 'mm/dd/yyyy') as startdate,
+						TO_CHAR(ma.enddate, 'mm/dd/yyyy') as enddate,
+						ma.condition,
+						ma.frequency,
+						ma.location
+					FROM u_misped_accommodations ma
+					JOIN students s
+						ON ma.studentsdcid = s.dcid
+					WHERE s.id = ~(curstudid)
+						AND ma.archived IS NULL
+					ORDER BY ma.startdate asc, ma.enddate asc]
+				<table class="linkDescList">
+					<thead>
+						<tr>
+							<th colspan="2">Accommodation Information</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="bold" style="width:20%;">Accommodation:</td>
+							<td>~(ma.accommodation)</td>
+						</tr>
+						<tr>
+							<td class="bold">Start Date:</td>
+							<td>~(ma.startdate)</td>
+						</tr>
+						<tr>
+							<td class="bold">End Date:</td>
+							<td>~(ma.enddate)</td>
+						</tr>
+						<tr>
+							<td class="bold">Condition:</td>
+							<td>~(ma.condition)</td>
+						</tr>
+						<tr>
+							<td class="bold">Frequency:</td>
+							<td>~(ma.frequency)</td>
+						</tr>
+						<tr>
+							<td class="bold">Location:</td>
+							<td>~(ma.location)</td>
+						</tr>
+					</tbody>
+				</table>
+				[/tlist_sql]  
   </div>
 </div>
