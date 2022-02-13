@@ -8,9 +8,16 @@
   <img class="alertImage" src="/images/misped/~[displaypref:mi_sped_alert_image].svg" width="35" height="35" />
   <div class="alertContent">
     <p class="alertHeader">~(studentname)</p>
+    ~[if#type1.gpv.type=SpEd/IEP]
     <p>The checkbox indicating Special Education information is being reported to the State of Michigan for this student is checked on the state reporting screen for Special Education.</p>
+		[/if#type1]
+		~[if#type2.gpv.type=504]
+    <p>The checkbox indicating 504 information is being reported to the State of Michigan for this student is checked on the state reporting screen for Special Education.</p>
+		[/if#type2]
+		
 				~[tlist_sql;
 					SELECT
+						ma.type,
 						ma.accommodation,
 						TO_CHAR(ma.startdate, 'mm/dd/yyyy') as startdate,
 						TO_CHAR(ma.enddate, 'mm/dd/yyyy') as enddate,
@@ -22,11 +29,12 @@
 						ON ma.studentsdcid = s.dcid
 					WHERE s.id = ~(curstudid)
 						AND ma.archived IS NULL
+						AND ma.type = '~(gpv.type)'
 					ORDER BY ma.startdate asc, ma.enddate asc]
 				<table class="linkDescList">
 					<thead>
 						<tr>
-							<th colspan="2">Accommodation Information</th>
+							<th colspan="2">~(ma.type) Accommodation Information</th>
 						</tr>
 					</thead>
 					<tbody>

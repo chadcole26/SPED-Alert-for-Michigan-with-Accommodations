@@ -65,11 +65,18 @@
 				</table>    
 		
 				~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:~(gpv.editid)]
-				<table id="newaccommodation" class="linkDescList">
+				<table id="editaccommodation" class="linkDescList">
+					<tr>
+						<td class="bold" style="width:20%;">Type:</td>
+						<td>
+							<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="SpEd/IEP" id="typeIEP" required>&nbsp;SpEd/IEP</label><br>
+							<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="504" id="type504" required>&nbsp;504</label>
+						</td>
+					</tr>
 					<tr>
 						<td class="bold" style="width:20%;">Accommodation:</td>
 						<td>
-							<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80"></textarea>
+							<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80" required></textarea>
 							<input type="hidden" id="newlastuser" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEBY" value="">
 						</td>
 					</tr>
@@ -88,19 +95,19 @@
 					<tr>
 						<td class="bold">Condition:</td>
 						<td>
-							<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80"></textarea>
+							<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80" required></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td class="bold">Frequency:</td>
 						<td>
-							<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40">
+							<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40" required>
 						</td>
 					</tr>
 					<tr>
 						<td class="bold">Location:</td>
 						<td>
-							<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40">
+							<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40" required>
 						</td>
 					</tr>
 					<tr>
