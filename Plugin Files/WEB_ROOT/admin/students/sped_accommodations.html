@@ -59,8 +59,8 @@
 						
 				~[tlist_sql;
 					SELECT
+						ma.type,
 						ma.studentsdcid,
-						s.dcid,
 						ma.id,
 						ma.accommodation,
 						TO_CHAR(ma.startdate, 'mm/dd/yyyy') as startdate,
@@ -78,8 +78,8 @@
 				<table class="linkDescList">
 					<thead>
 						<tr>
-							<th>Accommodation Information</th>
-							<th style="text-align:right;"><a href="/admin/spedaccommodations/accommodation_edit.html?frn=001~(ma.studentsdcid)&studentsdcid=~(s.dcid)&editid=~(ma.id)&no-store-lp">Edit/Archive Accommodation</a></th>
+							<th>Accommodation Information: ~m(ma.type)</th>
+							<th style="text-align:right;"><a href="/admin/spedaccommodations/accommodation_edit.html?frn=001~(ma.studentsdcid)&editid=~(ma.id)&no-store-lp">Edit/Archive Accommodation</a></th>
 						</tr>
 					</thead>
 					<tbody>

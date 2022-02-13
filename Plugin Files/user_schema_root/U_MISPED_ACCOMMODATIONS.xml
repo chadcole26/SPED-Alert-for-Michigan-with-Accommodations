@@ -15,5 +15,6 @@
         <field name="LASTUPDATEBY" type="String" length="4000" comment="Special Education Accommodation Laste Update By User Info"/>
         <field name="LOCATION" type="String" length="4000" comment="Special Education Accommodation Location"/>
         <field name="STARTDATE" type="Date" comment="Special Education Accommodation Start Date"/>
+        <field name="TYPE" type="String" length="40" comment="Special Education Accommodation Type"/>
     </extendedTable>
 </psExtension>
