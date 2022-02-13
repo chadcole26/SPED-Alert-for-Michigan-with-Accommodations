@@ -2,9 +2,9 @@
 <plugin 
 	xmlns="http://plugin.powerschool.pearson.com" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	description="Michigan Special Education Alert with Accommodations" 
-	name="Michigan SpEd Alert" 
-	version="3.4" 
+	description="Michigan Special Education/504 Alerts with Accommodations" 
+	name="Michigan SpEd/504 Alerts" 
+	version="0.9" 
 	xsi:schemaLocation="http://plugin.powerschool.pearson.com plugin.xsd">
 	<publisher name="Chad Cole">
 		<contact email="chadacole@gmail.com"/>
