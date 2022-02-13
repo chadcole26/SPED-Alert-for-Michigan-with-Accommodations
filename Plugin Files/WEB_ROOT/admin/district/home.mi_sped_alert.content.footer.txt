@@ -7,6 +7,6 @@
 <!-- This script adds the MI SpEd Alert Image Selector in the Plugins area of the District Setup page -->
 <script type="text/javascript">
   $j(document).ready( function() {
-    $j('#table_id_plugins > tbody').append('<tr><td><a href="/admin/district/mi_sped_alert_image_selector.html">MI SpEd Alert Image Selector</a></td><td>Select the image you would like to show when the checkbox to send special education information to the state is checked on the students state reporting page.</td></tr>');
+    $j('#table_id_plugins > tbody').append('<tr><td><a href="/admin/district/mi_sped_alert_image_selector.html">MI SpEd/504 Alert Image Selector</a></td><td>Select the image you would like to show when the checkbox to send special education information or 504 program participation to the state is checked on the students state reporting pages.</td></tr>');
   });
 </script>

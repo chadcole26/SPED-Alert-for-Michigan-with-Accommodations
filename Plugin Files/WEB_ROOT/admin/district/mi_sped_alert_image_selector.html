@@ -2,12 +2,12 @@
 <html>
 	<head>
 <!-- Plugin Credit and Acknowledgement:
-  This alert is an update of Eric Krebill's Simple SpEd Alert for MI Schools V2.3
-  https://support.powerschool.com/exchange/view.action?download.id=694 
+  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
+  https://support.powerschool.com/exchange/view.action?download.id=705
   It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
   It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
 -->
-		<title>MI SpEd Alert Image Selector</title>
+		<title>MI SpEd/504 Alert Image Selector</title>
 		<!-- required scripts -->
 		 ~[wc:commonscripts] 
 		<!-- Required style sheets: screen.css, and print.css --> 
@@ -37,12 +37,12 @@
 		<form action="/~[self.page]?action=success" method="POST">
 		 ~[wc:admin_header_css] 
 		<!-- breadcrumb start -->
-		<a href="/admin/home.html" target="_top">~[text:psx.html.admin_district.misc-district.start_page]</a> &gt; <a href="/admin/district/home.html" target="_top">~[text:psx.html.admin_district.misc-district.district_setup]</a> &gt;&nbsp;MI SpEd Alert Image Selector
+		<a href="/admin/home.html" target="_top">~[text:psx.html.admin_district.misc-district.start_page]</a> &gt; <a href="/admin/district/home.html" target="_top">~[text:psx.html.admin_district.misc-district.district_setup]</a> &gt;&nbsp;MI SpEd/504 Alert Image Selector
 		<!-- breadcrumb end -->
 		<!-- start of main menu and content --> 
 		 ~[wc:admin_navigation_css] 
 		<!-- Start of Page -->
-		<h1>MI SpEd Alert Image Selector</h1>
+		<h1>MI SpEd/504 Alert Image Selector</h1>
 		~[if.gpv.action=success]<div class="feedback-confirm">Successfully recorded changes</div>[/if]
 		<!-- start of content area --> 
 		<div class="box-round">

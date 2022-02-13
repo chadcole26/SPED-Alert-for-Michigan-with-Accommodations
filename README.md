@@ -2,6 +2,8 @@
 Update of Eric Krebill's SPED Accommodations for MI Schools PS SIS Plugin:
 https://support.powerschool.com/exchange/view.action?download.id=705
 
+YouTube walk through: https://youtu.be/FQlJK9H0eoQ
+
 This update is significant rewrite of Eric's original plugin.
 The original plugin relied on over 60 legacy custom fields most
 customers should have updated to table extensions a long time ago. This
