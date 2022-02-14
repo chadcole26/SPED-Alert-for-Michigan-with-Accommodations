@@ -1,3 +1,9 @@
+<!-- Plugin Credit and Acknowledgement:
+  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
+  https://support.powerschool.com/exchange/view.action?download.id=705
+  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
+  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+-->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -57,7 +63,7 @@
 						</tbody> 
 					</table> 			    
 
-				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a>&nbsp;&nbsp;<a href="/admin/students/sped_accom_archive.html?frn=~(studentfrn)&no-store-lp" class="button" style="display:none;" id="archivebutton">View Archived Accommodations</a>
+				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a>&nbsp;&nbsp;<a href="/admin/students/sped_accommodations_archive.html?frn=~(studentfrn)&no-store-lp" class="button" style="display:none;" id="archivebutton">View Archived Accommodations</a>
 				<br /><br />
 						
 				~[tlist_sql;
