@@ -27,5 +27,20 @@ Other changes include:
 - Added tracking features identifying who created the accommodation, who last updated it, and who archived it
 - Rewrote the meeting attendance page fragments to use less javascript
 
+This update can be installed alongside Eric's original plugin to assist in
+data migration. Page names, files, links, etc. have all been updated so there is
+no overlap.
+
 This update should also ensure compatibility with PS SIS 21.X and higher.
 
+Data Migration:
+Data can be exported from the legacy fields and compiled in a template with the
+following headers:
+- U_MISPED_ACCOMMODATIONS.StudentsDCID
+- U_MISPED_ACCOMMODATIONS.ACCOMMODATION
+- U_MISPED_ACCOMMODATIONS.CONDITION
+- U_MISPED_ACCOMMODATIONS.FREQUENCY
+- U_MISPED_ACCOMMODATIONS.LOCATION
+
+Make sure you export the DCID for students and import your compiled template into
+the U_MISPED_ACCOMMODATIONS extension table using Data Import Manager.
