@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	description="Michigan Special Education/504 Alerts with Accommodations" 
 	name="Michigan SpEd/504 Alerts" 
-	version="1.0" 
+	version="1.2" 
 	xsi:schemaLocation="http://plugin.powerschool.pearson.com plugin.xsd">
 	<publisher name="Chad Cole">
 		<contact email="chadacole@gmail.com"/>

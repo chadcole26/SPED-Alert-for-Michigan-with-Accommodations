@@ -1,13 +1,14 @@
-<!-- Plugin Credit and Acknowledgement:
-  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
-  https://support.powerschool.com/exchange/view.action?download.id=705
-  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
-  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+<!--
+	Plugin Info, Credit, and Acknowledgement:
+	SpEd/504 Alert with Accommodations v1.2:
+		https://support.powerschool.com/exchange/view.action?download.id=1158
+	This a Michigan specific rewrite of Eric Krebill's SPED Accommodations for MI Schools V3.3:
+		https://support.powerschool.com/exchange/view.action?download.id=705
 -->
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Archived Special Education Accommodations</title>
+		<title>Archived Accommodations</title>
 		<!-- required scripts -->
 		~[wc:commonscripts] 
 		<!-- Required style sheets: screen.css, and print.css -->
@@ -22,13 +23,13 @@
 		<!-- breadcrumb end -->
 		~[wc:admin_navigation_frame_css]
 		<!-- start of main menu and content -->
-		~[wc:title_student_begin_css] Archived Special Education Accommodations~[wc:title_student_end_css]
+		~[wc:title_student_begin_css] Archived Accommodations~[wc:title_student_end_css]
 		<form action="/~[self.page]?frn=~(studentfrn)&changesSaved=true" method="POST">
 			<!-- start of content area -->
 			~[if.gpv.changesSaved=true]<div class="feedback-confirm">~[text:psx.common.changes_recorded]</div>[/if]
 			<div class="box-round">
-			    <h2>Archived Special Education Accommodations</h2>
-			    
+			    <h2>Archived Accommodations</h2>
+			    <!--
 				<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
 					<thead> 
 						<tr> 
@@ -54,7 +55,8 @@
 							<td><b>MSDS reported as participating in Section 504?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSection504);1;Yes;True;Yes;0;No;False;No;;No)</td> 
 						</tr> 
 					</tbody> 
-				</table> 			    
+				</table>
+				-->		    
 						
 				~[tlist_sql;
 					SELECT

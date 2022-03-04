@@ -1,8 +1,9 @@
-<!-- Plugin Credit and Acknowledgement:
-  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
-  https://support.powerschool.com/exchange/view.action?download.id=705
-  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
-  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+<!--
+	Plugin Info, Credit, and Acknowledgement:
+	SpEd/504 Alert with Accommodations v1.2:
+		https://support.powerschool.com/exchange/view.action?download.id=1158
+	This a Michigan specific rewrite of Eric Krebill's SPED Accommodations for MI Schools V3.3:
+		https://support.powerschool.com/exchange/view.action?download.id=705
 -->
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,14 @@
   ~[wc:commonscripts]
   <link href="/images/css/screen.css" rel="stylesheet" media="screen">
   <link href="/images/css/print.css" rel="stylesheet" media="print">
+  <script type="text/javascript">
+  	$j(document).ready(function(){
+		$j('#CopyDates').click(function(){
+			$j('#startdate').val($j('#Start504').val());
+			$j('#enddate').val($j('#End504').val());
+		}); 	
+  	});
+  </script>
   <script type="text/javascript">
 		$j(document).ready(function() {
 			$j('#newlastuser').val($j('#curuser').val())
@@ -45,101 +54,102 @@
   <form action="/admin/students/sped_accommodations.html?frn=~(studentfrn)" method="POST">
 
   <!-- start of content area -->
-      <div class="box-round">
-			<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
-				<thead> 
-					<tr> 
-						<th style="text-align:left;">Information from Special Education State Reporting Pages</th> 
-					</tr> 
-				</thead> 
-				<tfoot> 
-					<tr> 
-						<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages and should be updated there.</em></td> 
-					</tr> 
-				</tfoot> 
-				<tbody> 
-					<tr> 
-						<td><b>MSDS reported as participating in Special Education?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSpecEd);1;Yes;True;Yes;0;No;False;No;;No)</td> 
-					</tr> 
-					<tr> 
-						<td><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
-					</tr> 
-					<tr> 
-						<td><b>Secondary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
-					</tr>
-					<tr> 
-						<td><b>MSDS reported as participating in Section 504?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSection504);1;Yes;True;Yes;0;No;False;No;;No)</td> 
-					</tr> 
-				</tbody> 
-			</table>    
-   
+	<div class="box-round">
+      	<!--
+		<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
+			<thead> 
+				<tr> 
+					<th style="text-align:left;">Information from Special Education State Reporting Pages</th> 
+				</tr> 
+			</thead> 
+			<tfoot> 
+				<tr> 
+					<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages and should be updated there.</em></td> 
+				</tr> 
+			</tfoot> 
+			<tbody> 
+				<tr> 
+					<td><b>MSDS reported as participating in Special Education?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSpecEd);1;Yes;True;Yes;0;No;False;No;;No)</td> 
+				</tr> 
+				<tr> 
+					<td><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
+				</tr> 
+				<tr> 
+					<td><b>Secondary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
+				</tr>
+				<tr> 
+					<td><b>MSDS reported as participating in Section 504?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSection504);1;Yes;True;Yes;0;No;False;No;;No)</td> 
+				</tr> 
+			</tbody> 
+		</table>    
+		-->   
 		
-				~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:~(gpv.editid)]
-				<table id="editaccommodation" class="linkDescList">
-					<tr>
-						<td class="bold" style="width:20%;">Type:</td>
-						<td>
-							<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="SpEd/IEP" id="typeIEP" required>&nbsp;SpEd/IEP</label><br>
-							<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="504" id="type504" required>&nbsp;504</label>
-						</td>
-					</tr>
-					<tr>
-						<td class="bold" style="width:20%;">Accommodation:</td>
-						<td>
-							<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80" required></textarea>
-							<input type="hidden" id="newlastuser" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEBY" value="">
-						</td>
-					</tr>
-					<tr>
-						<td class="bold">Start Date:</td>
-						<td>
-							<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]STARTDATE" value="" size="12" id="startdate">
-						</td>
-					</tr>
-					<tr>
-						<td class="bold">End Date:</td>
-						<td>
-							<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]ENDDATE" value="" size="12" id="enddate">
-						</td>
-					</tr>
-					<tr>
-						<td class="bold">Condition:</td>
-						<td>
-							<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80" required></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td class="bold">Frequency:</td>
-						<td>
-							<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40" required>
-						</td>
-					</tr>
-					<tr>
-						<td class="bold">Location:</td>
-						<td>
-							<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40" required>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="text-align:right;">
-							<b>Archive this record?</b>&nbsp;
-							<input type="checkbox" name="[U_MISPED_ACCOMMODATIONS]ARCHIVED" value="" id="archive">
-							<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]ARCHIVEDBY" value="" id="archivedby"><br>
-							<span id="userwarning" style="display:none;"><em>Your user information will be recorded.</em></span>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">This accommodation was created by ~([U_MISPED_ACCOMMODATIONS]CREATEDBY)</td>
-					</tr>
-					<tr>
-						<td colspan="2">This accommodation was last updated by ~([U_MISPED_ACCOMMODATIONS]LASTUPDATEBY)</td>
-					</tr>
-					~[if#archived.~([U_MISPED_ACCOMMODATIONS]ARCHIVED)=1]
-					<tr>
-						<td colspan="2">This accommodation was archived by ~([U_MISPED_ACCOMMODATIONS]ARCHIVEDBY)</td>
-					</tr>
-					[/if#archived]
-				</table>      
+		~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:~(gpv.editid)]
+		<table id="editaccommodation" class="linkDescList">
+			<tr>
+				<td class="bold" style="width:20%;">Type:</td>
+				<td>
+					<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="SpEd/IEP" id="typeIEP" required>&nbsp;SpEd/IEP</label><br>
+					<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="504" id="type504" required>&nbsp;504</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="bold" style="width:20%;">Accommodation:</td>
+				<td>
+					<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80" required></textarea>
+					<input type="hidden" id="newlastuser" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEBY" value="">
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Start Date:</td>
+				<td>
+					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]STARTDATE" value="" size="12" id="startdate">
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">End Date:</td>
+				<td>
+					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]ENDDATE" value="" size="12" id="enddate">
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Condition:</td>
+				<td>
+					<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80" required></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Frequency:</td>
+				<td>
+					<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40" required>
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Location:</td>
+				<td>
+					<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40" required>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;">
+					<b>Archive this record?</b>&nbsp;
+					<input type="checkbox" name="[U_MISPED_ACCOMMODATIONS]ARCHIVED" value="" id="archive">
+					<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]ARCHIVEDBY" value="" id="archivedby"><br>
+					<span id="userwarning" style="display:none;"><em>Your user information will be recorded.</em></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">This accommodation was created by ~([U_MISPED_ACCOMMODATIONS]CREATEDBY)</td>
+			</tr>
+			<tr>
+				<td colspan="2">This accommodation was last updated by ~([U_MISPED_ACCOMMODATIONS]LASTUPDATEBY)</td>
+			</tr>
+			~[if#archived.~([U_MISPED_ACCOMMODATIONS]ARCHIVED)=1]
+			<tr>
+				<td colspan="2">This accommodation was archived by ~([U_MISPED_ACCOMMODATIONS]ARCHIVEDBY)</td>
+			</tr>
+			[/if#archived]
+		</table>      
 
         <div class="button-row" id="submitdiv">
           <input type="hidden" name="ac" value="prim">~[submitbutton]

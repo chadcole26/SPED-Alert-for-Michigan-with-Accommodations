@@ -1,73 +1,86 @@
-<!-- Plugin Credit and Acknowledgement:
-  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
-  https://support.powerschool.com/exchange/view.action?download.id=705
-  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
-  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+<!--
+	Plugin Info, Credit, and Acknowledgement:
+	SpEd/504 Alert with Accommodations v1.2:
+		https://support.powerschool.com/exchange/view.action?download.id=1158
+	This a Michigan specific rewrite of Eric Krebill's SPED Accommodations for MI Schools V3.3:
+		https://support.powerschool.com/exchange/view.action?download.id=705
 -->
 <div class="box-round" id="alert-MI-SPED~(studentfrn)">
-  ~[if#typeSpEdA.gpv.type=SpEd/IEP]
-  	<img class="alertImage" src="/images/misped/~[displaypref:mi_sped_alert_image].svg" width="35" height="35" />
-  [/if#typeSpEdA]
-  ~[if#type504A.gpv.type=504]
-  	<img class="alertImage" src="/images/misped/~[displaypref:mi_504_alert_image].svg" width="35" height="35" />
-  [/if#type504A] 
-  <div class="alertContent">
-    <p class="alertHeader">~(studentname)</p>
-    ~[if#typeSpEdB.gpv.type=SpEd/IEP]
-    	<p>The checkbox indicating Special Education information is being reported to the State of Michigan for this student is checked on the state reporting screen for Special Education.</p>
-	[/if#typeSpEdB]
-	~[if#type504B.gpv.type=504]
-    	<p>The checkbox for Section 504 is checked for this student on the state reporting screen for Program Participation.</p>
-	[/if#type504B]
-				~[tlist_sql;
-					SELECT
-						ma.type,
-						ma.accommodation,
-						TO_CHAR(ma.startdate, 'mm/dd/yyyy') as startdate,
-						TO_CHAR(ma.enddate, 'mm/dd/yyyy') as enddate,
-						ma.condition,
-						ma.frequency,
-						ma.location
-					FROM u_misped_accommodations ma
-					JOIN students s
-						ON ma.studentsdcid = s.dcid
-					WHERE s.id = ~(curstudid)
-						AND ma.archived IS NULL
-						AND ma.type = '~(gpv.type)'
-					ORDER BY ma.startdate asc, ma.enddate asc]
-				<table class="linkDescList">
-					<thead>
-						<tr>
-							<th colspan="2">~(ma.type) Accommodation Information</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="bold" style="width:20%;">Accommodation:</td>
-							<td>~(ma.accommodation)</td>
-						</tr>
-						<tr>
-							<td class="bold">Start Date:</td>
-							<td>~(ma.startdate)</td>
-						</tr>
-						<tr>
-							<td class="bold">End Date:</td>
-							<td>~(ma.enddate)</td>
-						</tr>
-						<tr>
-							<td class="bold">Condition:</td>
-							<td>~(ma.condition)</td>
-						</tr>
-						<tr>
-							<td class="bold">Frequency:</td>
-							<td>~(ma.frequency)</td>
-						</tr>
-						<tr>
-							<td class="bold">Location:</td>
-							<td>~(ma.location)</td>
-						</tr>
-					</tbody>
-				</table>
-				[/tlist_sql]  
-  </div>
+	~[if#typeSpEdA.gpv.type=SpEd/IEP]
+		<img class="alertImage" src="/images/misped/~[displaypref:mi_sped_alert_image].svg" width="35" height="35" />
+	[/if#typeSpEdA]
+	~[if#type504A.gpv.type=504]
+		<img class="alertImage" src="/images/misped/~[displaypref:mi_504_alert_image].svg" width="35" height="35" />
+	[/if#type504A] 
+	<div class="alertContent">
+		<h2>~(gpv.type) Accommodations for ~(studentname)</h2>
+		~[if#cm1.~([STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER1)#]
+			<p><b>Primary Case Manager:</b>&nbsp;~([STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER1)</p>
+		[/if#cm1]
+		~[if#cm2.~([STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER2)#]
+			<p><b>Secondary Case Manager:</b>&nbsp;~([STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER2)</p>
+		[/if#cm2]
+		~[if#typeSpEdB.gpv.type=SpEd/IEP]
+			~[if#typeSpEdC.~([Students.S_MI_STU_GC_X]flagSpecEd)=1]
+				<p>The checkbox indicating Special Education information is being reported to the State of Michigan for this student is checked on the state reporting screen for Special Education.</p>
+			[/if#typeSpEdC]
+		[/if#typeSpEdB]
+		~[if#type504B.gpv.type=504]
+			~[if#type504C.~([Students.S_MI_STU_GC_X]flagSection504)=1]
+				<p>The checkbox for Section 504 is checked for this student on the state reporting screen for Program Participation.</p>
+			[/if#type504C]
+		[/if#type504B]
+
+		~[tlist_sql;
+			SELECT
+				ma.type,
+				ma.accommodation,
+				ma.startdate,
+				ma.enddate,
+				ma.condition,
+				ma.frequency,
+				ma.location
+			FROM u_misped_accommodations ma
+			JOIN students s
+				ON ma.studentsdcid = s.dcid
+			WHERE s.id = ~(curstudid)
+				AND ma.archived IS NULL
+				AND ma.type = '~(gpv.type)'
+			ORDER BY ma.startdate asc, ma.enddate asc
+			;nonemessage=<table><tr><td colspan="100%">There are no active accommodations recorded for this student.</td></tr></table>]
+		<table class="linkDescList">
+			<thead>
+				<tr>
+					<th colspan="2">~(ma.type) Accommodation Information</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="bold" style="width:20%;">Accommodation:</td>
+					<td>~(ma.accommodation;ReplaceCRLFWithBR)</td>
+				</tr>
+				<tr>
+					<td class="bold">Start Date:</td>
+					<td>~(ma.startdate;d)</td>
+				</tr>
+				<tr>
+					<td class="bold">End Date:</td>
+					<td>~(ma.enddate;d)</td>
+				</tr>
+				<tr>
+					<td class="bold">Condition:</td>
+					<td>~(ma.condition;ReplaceCRLFWithBR)</td>
+				</tr>
+				<tr>
+					<td class="bold">Frequency:</td>
+					<td>~(ma.frequency)</td>
+				</tr>
+				<tr>
+					<td class="bold">Location:</td>
+					<td>~(ma.location)</td>
+				</tr>
+			</tbody>
+		</table>
+		[/tlist_sql]  
+	</div>
 </div>

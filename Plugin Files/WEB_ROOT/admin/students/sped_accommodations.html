@@ -1,8 +1,9 @@
-<!-- Plugin Credit and Acknowledgement:
-  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
-  https://support.powerschool.com/exchange/view.action?download.id=705
-  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
-  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+<!--
+	Plugin Info, Credit, and Acknowledgement:
+	SpEd/504 Alert with Accommodations v1.2:
+		https://support.powerschool.com/exchange/view.action?download.id=1158
+	This a Michigan specific rewrite of Eric Krebill's SPED Accommodations for MI Schools V3.3:
+		https://support.powerschool.com/exchange/view.action?download.id=705
 -->
 <!DOCTYPE html>
 <html>
@@ -34,34 +35,125 @@
 			<!-- start of content area -->
 			~[if.gpv.changesSaved=true]<div class="feedback-confirm">~[text:psx.common.changes_recorded]</div>[/if]
 			<div class="box-round">
-			    <h2>Special Education/504 Accommodations</h2>
 			    
-					<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
-						<thead> 
-							<tr> 
-								<th style="text-align:left;">Information from Special Education State Reporting Pages</th> 
-							</tr> 
-						</thead> 
-						<tfoot> 
-							<tr> 
-								<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages and should be updated there.</em></td> 
-							</tr> 
-						</tfoot> 
-						<tbody> 
-							<tr> 
-								<td><b>MSDS reported as participating in Special Education</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSpecEd);1;Yes;True;Yes;0;No;False;No;;No)</td> 
-							</tr> 
-							<tr> 
-								<td><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
-							</tr> 
-							<tr> 
-								<td><b>Secondary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
-							</tr>
-							<tr> 
-								<td><b>MSDS reported as participating in Section 504?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSection504);1;Yes;True;Yes;0;No;False;No;;No)</td> 
-							</tr> 
-						</tbody> 
-					</table> 			    
+				<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
+					<thead> 
+						<tr> 
+							<th style="text-align:left;" colspan="2">Alert Information and Indicators</th> 
+						</tr> 
+					</thead>
+					<!--
+					<tfoot> 
+						<tr> 
+							<td style="text-align:left;" colspan="2"><em>This data is maintained on the Michigan state reporting pages and should be updated there.</em></td> 
+						</tr> 
+					</tfoot>
+					-->
+					<tbody>
+					~[if#MSDSSpEd.~([STUDENTS.S_MI_STU_GC_X]flagSpecEd)=1]	
+						<tr> 
+							<td colspan="2"><b>MSDS reported as participating in Special Education</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSpecEd);1;Yes;True;Yes;0;No;False;No;;No)</td> 
+						</tr>
+						<tr> 
+							<td colspan="2"><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
+						</tr>
+				
+						<tr> 
+							<td colspan="2"><b>Secondary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
+						</tr>
+					[else#MSDSSpEd]
+						<!-- Availble if districts want to track students who may receive SpEd services but don't have 
+							accommodations, IEP, or Section 504. There is no alert associated with this field.
+						<tr>
+							<td class="bold" style="width:35%;">Student is Special Education:</td>
+							<td>
+								<label><input type="radio" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]IS_SPED" value="1" id="SpEdYes" required>&nbsp;Yes</label>&nbsp;&nbsp;
+								<label><input type="radio" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]IS_SPED" value="" id="SpEdNo" required>&nbsp;No</label>&nbsp;&nbsp;
+								<em>Info is not currently used to display alerts</em>
+							</td>
+						</tr>
+						-->
+						<tr>
+							<td class="bold" style="width:35%;">Student has an active IEP:</td>
+							<td>
+								<label><input type="radio" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]HAS_IEP" value="1" id="iepYes" required>&nbsp;Yes</label>&nbsp;&nbsp;
+								<label><input type="radio" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]HAS_IEP" value="" id="iepNo" required>&nbsp;No</label>&nbsp;&nbsp;
+								<em>Must be set to Yes for IEP Accommodation alert to display</em>
+							</td>
+						</tr>
+						<tr>
+							<td class="bold" style="width:35%;">Primary Disability:</td>
+							<td>
+								<select id="primarydisability" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]PRIMARY_DISABILITY">
+									<option value="">Select Primary Disability</option>
+									<option value="05">05 - Cognitive Impairment</option>
+									<option value="06">06 - Emotional Impairment</option>
+									<option value="07">07 - Hearing Impairment</option>
+									<option value="08">08 - Visual Impairment</option>
+									<option value="09">09 - Physical Impairment</option>
+									<option value="10">10 - Speech and Language Impairment</option>
+									<option value="11">11 - Early Childhood Developmental Delay</option>
+									<option value="13">13 - Specific Learning Disability</option>
+									<option value="14">14 - Severe Multiple Impairment</option>
+									<option value="15">15 - Autism Spectrum Disorder</option>
+									<option value="16">16 - Traumatic Brain Injury</option>
+									<option value="17">17 - Deaf-Blindness</option>
+									<option value="20">20 - Other Health Impairment</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="bold" style="width:35%;">Secondary Disability:</td>
+							<td>
+								<select id="secondarydisability" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]SECONDARY_DISABILITY">
+									<option value="">Select Additional Characteristics</option>
+									<option value="22">22 - Legally Blind</option>
+									<option value="24">24 - Deaf</option>
+									<option value="22,24">22,24 - Both Legally Blind and Deaf</option>
+								</select>
+							</td>
+						</tr>					
+					[/if#MSDSSpEd]
+					~[if#MSDS504.~([STUDENTS.S_MI_STU_GC_X]flagSection504)=1]
+						<tr> 
+							<td colspan="2"><b>MSDS reported as participating in Section 504?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSection504);1;Yes;True;Yes;0;No;False;No;;No)&nbsp;&nbsp;<b>Start:</b> ~([STUDENTS.S_MI_STU_GC_X]sec504StartDate)&nbsp;&nbsp;<b>End:</b> ~([STUDENTS.S_MI_STU_GC_X]sec504EndDate)</td> 
+						</tr>
+					[else#MSDS504]
+						<tr>
+							<td class="bold" style="width:35%;">Student has an active Section 504 Plan:</td>
+							<td>
+								<label><input type="radio" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]HAS_504" value="1" id="504Yes" required>&nbsp;Yes</label>&nbsp;&nbsp;
+								<label><input type="radio" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]HAS_504" value="" id="504No" required>&nbsp;No</label>&nbsp;&nbsp;
+								<em>Must be set to Yes for Section 504 Accommodation alert to display</em>
+							</td>
+						</tr>
+						<tr>
+							<td class="bold" style="width:35%;">Section 504 Plan Start Date:</td>
+							<td>
+								<input type="text" class="psDateWidget" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]START_504" value="" size="12" id="Start504">
+							</td>
+						</tr>
+						<tr>
+							<td class="bold" style="width:35%;">Section 504 Plan End Date:</td>
+							<td>
+								<input type="text" class="psDateWidget" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]END_504" value="" size="12" id="End504">
+							</td>
+						</tr>						
+					[/if#MSDS504]
+						<tr>
+							<td class="bold" style="width:35%;">Primary Case Manager:</td>
+							<td>
+								<input type="text" id="casemanager1" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER1" value="~([STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER1)" size="40">
+							</td>
+						</tr>
+						<tr>
+							<td class="bold" style="width:35%;">Secondary Case Manager:</td>
+							<td>
+								<input type="text" id="casemanager2" name="[STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER2" value="~([STUDENTS.U_MISPED_ACCOMMODATIONS]CASE_MANAGER2)" size="40">
+							</td>
+						</tr>
+					</tbody> 
+				</table> 			    
 
 				<a href="/admin/spedaccommodations/accommodation_add.html?frn=~(studentfrn)&no-store-lp" class="button">Add Accommodation</a>&nbsp;&nbsp;<a href="/admin/students/sped_accommodations_archive.html?frn=~(studentfrn)&no-store-lp" class="button" style="display:none;" id="archivebutton">View Archived Accommodations</a>
 				<br /><br />
@@ -72,8 +164,8 @@
 						ma.studentsdcid,
 						ma.id,
 						ma.accommodation,
-						TO_CHAR(ma.startdate, 'mm/dd/yyyy') as startdate,
-						TO_CHAR(ma.enddate, 'mm/dd/yyyy') as enddate,
+						ma.startdate,
+						ma.enddate,
 						ma.condition,
 						ma.frequency,
 						ma.location
@@ -96,19 +188,19 @@
 					<tbody>
 						<tr>
 							<td class="bold" style="width:20%;">Accommodation:</td>
-							<td>~(ma.accommodation)</td>
+							<td>~(ma.accommodation;ReplaceCRLFWithBR)</td>
 						</tr>
 						<tr>
 							<td class="bold">Start Date:</td>
-							<td>~(ma.startdate)</td>
+							<td>~(ma.startdate;d)</td>
 						</tr>
 						<tr>
 							<td class="bold">End Date:</td>
-							<td>~(ma.enddate)</td>
+							<td>~(ma.enddate;d)</td>
 						</tr>
 						<tr>
 							<td class="bold">Condition:</td>
-							<td>~(ma.condition)</td>
+							<td>~(ma.condition;ReplaceCRLFWithBR)</td>
 						</tr>
 						<tr>
 							<td class="bold">Frequency:</td>
@@ -121,23 +213,25 @@
 					</tbody>
 				</table>
 				[/tlist_sql]
-
-				<div id="archive_test" style="display:none;">
-					~[tlist_sql;
-						SELECT COUNT (*)
-						FROM u_misped_accommodations ma
-						JOIN students s
-							ON ma.studentsdcid = s.dcid
-						WHERE s.id = ~(curstudid)
-							AND ma.archived IS NOT NULL]
-						<input type="hidden" id="archive_count" value="~(count)">
-					[/tlist_sql]
-				</div>
-					
+				
+				<div class="button-row">
+					<input type="hidden" name="ac" value="prim">~[submitbutton]
 				</div>
 
 			</div>
 		</form>
+
+		<div id="archive_test" style="display:none;">
+			~[tlist_sql;
+				SELECT COUNT (*)
+				FROM u_misped_accommodations ma
+				JOIN students s
+					ON ma.studentsdcid = s.dcid
+				WHERE s.id = ~(curstudid)
+					AND ma.archived IS NOT NULL]
+				<input type="hidden" id="archive_count" value="~(count)">
+			[/tlist_sql]
+		</div>
 		<!-- end of content area -->
 		~[wc:admin_footer_frame_css]
 	</body> 

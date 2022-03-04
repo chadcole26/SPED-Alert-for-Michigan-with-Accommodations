@@ -17,4 +17,15 @@
         <field name="STARTDATE" type="Date" comment="Special Education Accommodation Start Date"/>
         <field name="TYPE" type="String" length="40" comment="Special Education Accommodation Type"/>
     </extendedTable>
+    <extendedTable coreTable="Students" dbTableName="U_MISPED_INFO" comment="Student services and participation information">
+        <field name="END_504" type="Date" comment="End date for active 504 plan"/>
+        <field name="HAS_504" type="Double" comment="Student has an active 504 plan"/>
+        <field name="HAS_IEP" type="Double" comment="Student has an active IEP"/>
+        <field name="IS_SPED" type="Double" comment="Student receives special education services"/>
+        <field name="CASE_MANAGER1" type="String" length="100" comment="Primary Case Manager"/>
+        <field name="CASE_MANAGER2" type="String" length="100" comment="Secondary Case Manager"/>
+        <field name="PRIMARY_DISABILITY" type="String" length="4000" comment="Special Education Primary Disability"/>
+        <field name="SECONDARY_DISABILITY" type="String" length="4000" comment="Special Education Secondary Disability"/>
+        <field name="START_504" type="Date" comment="Start date for active 504 plan"/>
+    </extendedTable>
 </psExtension>

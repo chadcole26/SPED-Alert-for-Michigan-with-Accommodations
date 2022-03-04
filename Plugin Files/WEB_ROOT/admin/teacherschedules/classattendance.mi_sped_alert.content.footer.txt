@@ -1,8 +1,9 @@
-<!-- Plugin Credit and Acknowledgement:
-  This alert is an update of Eric Krebill's SPED Accommodations for MI Schools V3.3
-  https://support.powerschool.com/exchange/view.action?download.id=705
-  It has been updated to reference the MI State Reporting Extension field instead of the legacy custom field.
-  It also adds an image selector allowing districts to choose from 1 of 12 images for their Special Education alert.
+<!--
+	Plugin Info, Credit, and Acknowledgement:
+	SpEd/504 Alert with Accommodations v1.2:
+		https://support.powerschool.com/exchange/view.action?download.id=1158
+	This a Michigan specific rewrite of Eric Krebill's SPED Accommodations for MI Schools V3.3:
+		https://support.powerschool.com/exchange/view.action?download.id=705
 -->
 ~[if#pagetype.~[gpv:pagetype]=meeting]
 
@@ -28,11 +29,13 @@
 			from cc cc
 			join students s 
 				on s.id = cc.studentid
+			join u_misped_info mi
+				on mi.studentsdcid = s.dcid
 			join s_mi_stu_gc_x sr
 				on sr.studentsdcid = s.dcid
 			where cc.sectionid = ~(gpv.sectionid;sqlText)
 				and to_date('~(gpv.att_date;sqlText)','~[datetext:mmddyyyy]') between cc.dateenrolled and cc.dateleft-1
-				and sr.flagSpecEd = 1
+				and (sr.flagSpecEd = 1 or mi.has_iep = 1)
 	]
 		<input type="hidden" class="SpEd-IEP" ccid="~(1)" sdcid="~(2)" />
 	[/tlist_sql]
@@ -42,11 +45,13 @@
 			from cc cc
 			join students s 
 				on s.id = cc.studentid
+			join u_misped_info mi
+				on mi.studentsdcid = s.dcid
 			join s_mi_stu_gc_x sr
 				on sr.studentsdcid = s.dcid
 			where cc.sectionid = ~(gpv.sectionid;sqlText)
 				and to_date('~(gpv.att_date;sqlText)','~[datetext:mmddyyyy]') between cc.dateenrolled and cc.dateleft-1
-				and sr.flagSection504 = 1
+				and (sr.flagSection504 = 1 or mi.has_504 = 1)
 	]
 		<input type="hidden" class="504" ccid="~(1)" sdcid="~(2)" />
 	[/tlist_sql]
