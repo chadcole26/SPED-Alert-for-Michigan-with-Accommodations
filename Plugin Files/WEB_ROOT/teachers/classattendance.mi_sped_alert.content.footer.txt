@@ -29,9 +29,9 @@
 			from cc cc
 			join students s 
 				on s.id = cc.studentid
-			join u_misped_info mi
+			left join u_misped_info mi
 				on mi.studentsdcid = s.dcid
-			join s_mi_stu_gc_x sr
+			left join s_mi_stu_gc_x sr
 				on sr.studentsdcid = s.dcid
 			where cc.sectionid = ~(gpv.sectionid;sqlText)
 				and to_date('~(gpv.att_date;sqlText)','~[datetext:mmddyyyy]') between cc.dateenrolled and cc.dateleft-1
@@ -45,9 +45,9 @@
 			from cc cc
 			join students s 
 				on s.id = cc.studentid
-			join u_misped_info mi
+			left join u_misped_info mi
 				on mi.studentsdcid = s.dcid
-			join s_mi_stu_gc_x sr
+			left join s_mi_stu_gc_x sr
 				on sr.studentsdcid = s.dcid
 			where cc.sectionid = ~(gpv.sectionid;sqlText)
 				and to_date('~(gpv.att_date;sqlText)','~[datetext:mmddyyyy]') between cc.dateenrolled and cc.dateleft-1

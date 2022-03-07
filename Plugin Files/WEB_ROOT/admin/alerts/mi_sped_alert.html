@@ -35,7 +35,9 @@
 			SELECT
 				ma.type,
 				ma.accommodation,
+				case when ma.startdate is null then 'none' else null end as starttest1,
 				ma.startdate,
+				case when ma.startdate is null then 'none' else null end as starttest2,
 				ma.enddate,
 				ma.condition,
 				ma.frequency,
@@ -59,11 +61,11 @@
 					<td class="bold" style="width:20%;">Accommodation:</td>
 					<td>~(ma.accommodation;ReplaceCRLFWithBR)</td>
 				</tr>
-				<tr>
+				<tr style="display:~(starttest1);">
 					<td class="bold">Start Date:</td>
 					<td>~(ma.startdate;d)</td>
 				</tr>
-				<tr>
+				<tr style="display:~(starttest2);">
 					<td class="bold">End Date:</td>
 					<td>~(ma.enddate;d)</td>
 				</tr>
