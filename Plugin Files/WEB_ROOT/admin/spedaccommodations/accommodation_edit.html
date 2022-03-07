@@ -9,18 +9,10 @@
 <html>
 <!-- start right frame -->
 <head>
-  <title>Edit/Archive Special Education Accommodation</title>
+  <title>Edit/Archive Accommodation</title>
   ~[wc:commonscripts]
   <link href="/images/css/screen.css" rel="stylesheet" media="screen">
   <link href="/images/css/print.css" rel="stylesheet" media="print">
-  <script type="text/javascript">
-  	$j(document).ready(function(){
-		$j('#CopyDates').click(function(){
-			$j('#startdate').val($j('#Start504').val());
-			$j('#enddate').val($j('#End504').val());
-		}); 	
-  	});
-  </script>
   <script type="text/javascript">
 		$j(document).ready(function() {
 			$j('#newlastuser').val($j('#curuser').val())
@@ -32,7 +24,26 @@
 					$j('#userwarning').hide();
 					$j('#archivedby').val('');
 				};
-			});	
+			});
+			$j('#CopyDates').click(function(){
+				$j('#startdate').val($j('#Start504').val());
+				$j('#enddate').val($j('#End504').val());
+			});
+			if ($j('#startdate').val() != '') {
+				$j('#trstartdate').show();
+				$j('#trenddate').show();
+				$j('#startenddates').prop('checked',true);
+			};
+			$j('#startenddates').change(function(){
+				if(this.checked) {
+					$j('#trstartdate').show();
+					$j('#trenddate').show();
+				} else {
+					$j('.hasDatepicker').datepicker('setDate', null);
+					$j('#trstartdate').hide();
+					$j('#trenddate').hide();
+				};
+			});
 		});
 	</script>
 </head>
@@ -43,11 +54,11 @@
   <!-- breadcrumb start -->
   <a href="/admin/home.html" target="_top">~[text:psx.html.admin_students.misc.start_page]</a> &gt;
   <a href="home.html?selectstudent=nosearch" target="_top">~[text:psx.html.admin_students.misc.student_selection]</a> &gt;
-  Edit/Archive Special Education Accommodation
+  Edit/Archive Accommodation
   <!-- breadcrumb end -->
   ~[wc:admin_navigation_frame_css]
 
-  ~[wc:title_student_begin_css]Edit/Archive Special Education Accommodation~[wc:title_student_end_css]
+  ~[wc:title_student_begin_css]Edit/Archive Accommodation~[wc:title_student_end_css]
 
   <!-- start of content and bounding box -->
 
@@ -55,35 +66,6 @@
 
   <!-- start of content area -->
 	<div class="box-round">
-      	<!--
-		<table border="0" cellpadding="0" cellspacing="0" class="linkDescList" id="MI_SpEdInfo"> 
-			<thead> 
-				<tr> 
-					<th style="text-align:left;">Information from Special Education State Reporting Pages</th> 
-				</tr> 
-			</thead> 
-			<tfoot> 
-				<tr> 
-					<td style="text-align:left;"><em>This data is maintained on the Michigan state reporting pages and should be updated there.</em></td> 
-				</tr> 
-			</tfoot> 
-			<tbody> 
-				<tr> 
-					<td><b>MSDS reported as participating in Special Education?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSpecEd);1;Yes;True;Yes;0;No;False;No;;No)</td> 
-				</tr> 
-				<tr> 
-					<td><b>Primary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]sePriDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]sePriDisability);05;Cognitive Impairment;06;Emotional Impairment;07;Hearing Impairment;08;Visual Impairment;09;Physical Impairment;10;Speech and Language Impairment;11;Early Childhood Developmental Delay;13;Specific Learning Disability;14;Severe Multiple Impairment;15;Autism Spectrum Disorder;16;Traumatic Brain Injury;17;Deaf-Blindness;20;Other Health Impairment;;)</td> 
-				</tr> 
-				<tr> 
-					<td><b>Secondary Disability:</b>&nbsp;~([STUDENTS.S_MI_STU_GC_X]seAddDisability) - ~(decode;~([STUDENTS.S_MI_STU_GC_X]seAddDisability);22;Legally Blind;24;Deaf;22,24;Both Legally Blind and Deaf;;)</td> 
-				</tr>
-				<tr> 
-					<td><b>MSDS reported as participating in Section 504?</b>&nbsp;~(decode;~([STUDENTS.S_MI_STU_GC_X]flagSection504);1;Yes;True;Yes;0;No;False;No;;No)</td> 
-				</tr> 
-			</tbody> 
-		</table>    
-		-->   
-		
 		~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:~(gpv.editid)]
 		<table id="editaccommodation" class="linkDescList">
 			<tr>
@@ -101,15 +83,22 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="bold">Start Date:</td>
-				<td>
-					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]STARTDATE" value="" size="12" id="startdate">
+				<td colspan="2">
+					<b>Enter start/end dates for this accommodation?</b>&nbsp;&nbsp;<input type="checkbox" id="startenddates">
 				</td>
 			</tr>
-			<tr>
+			<tr style="display:none;" id="trstartdate">
+				<td class="bold">Start Date:</td>
+				<td>
+					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]STARTDATE" value="" size="12" id="startdate">&nbsp;&nbsp;<a class="button" id="CopyDates">Copy Plan Start/End Dates</a>
+					<input type="hidden" value="~([STUDENTS.U_MISPED_ACCOMMODATIONS]START_504)" id="Start504">
+				</td>
+			</tr>
+			<tr style="display:none;" id="trenddate">
 				<td class="bold">End Date:</td>
 				<td>
 					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]ENDDATE" value="" size="12" id="enddate">
+					<input type="hidden" value="~([STUDENTS.U_MISPED_ACCOMMODATIONS]END_504)" id="End504">
 				</td>
 			</tr>
 			<tr>

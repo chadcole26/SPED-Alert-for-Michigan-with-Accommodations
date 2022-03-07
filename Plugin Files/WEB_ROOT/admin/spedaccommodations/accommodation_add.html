@@ -18,7 +18,17 @@
 		$j('#CopyDates').click(function(){
 			$j('#startdate').val($j('#Start504').val());
 			$j('#enddate').val($j('#End504').val());
-		}); 	
+		});
+		$j('#startenddates').change(function(){
+			if(this.checked) {
+				$j('#trstartdate').show();
+				$j('#trenddate').show();
+			} else {
+				$j('.hasDatepicker').datepicker('setDate', null);
+				$j('#trstartdate').hide();
+				$j('#trenddate').hide();
+			};
+		});	
   	});
   </script>
 </head>
@@ -43,54 +53,61 @@
 
     <div class="box-round">
     
-			~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:-1]
-			<table id="newaccommodation" class="linkDescList">
-				<tr>
-					<td class="bold" style="width:20%;">Type:</td>
-					<td>
-						<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="SpEd/IEP" id="typeIEP" required>&nbsp;SpEd/IEP</label><br>
-						<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="504" id="type504" required>&nbsp;504</label>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold" style="width:20%;">Accommodation:</td>
-					<td>
-						<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80" required></textarea>
-						<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]CREATEDBY" value="~[x:username;firstlast]">
-						<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEBY" value="~[x:username;firstlast]">
-					</td>
-				</tr>
-				<tr>
-					<td class="bold">Start Date:</td>
-					<td>
-						<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]STARTDATE" value="" size="12" id="startdate">
-					</td>
-				</tr>
-				<tr>
-					<td class="bold">End Date:</td>
-					<td>
-						<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]ENDDATE" value="" size="12" id="enddate">
-					</td>
-				</tr>
-				<tr>
-					<td class="bold">Condition:</td>
-					<td>
-						<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80" required></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold">Frequency:</td>
-					<td>
-						<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40" required>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold">Location:</td>
-					<td>
-						<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40" required>
-					</td>
-				</tr>
-			</table>
+		~[DirectTable.Select:U_MISPED_ACCOMMODATIONS;id:-1]
+		<table id="newaccommodation" class="linkDescList">
+			<tr>
+				<td class="bold" style="width:20%;">Type:</td>
+				<td>
+					<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="SpEd/IEP" id="typeIEP" required>&nbsp;SpEd/IEP</label><br>
+					<label><input type="radio" name="[U_MISPED_ACCOMMODATIONS]TYPE" value="504" id="type504" required>&nbsp;504</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="bold" style="width:20%;">Accommodation:</td>
+				<td>
+					<textarea id="accommodation" name="[U_MISPED_ACCOMMODATIONS]ACCOMMODATION" rows="4" cols="80" required></textarea>
+					<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]CREATEDBY" value="~[x:username;firstlast]">
+					<input type="hidden" name="[U_MISPED_ACCOMMODATIONS]LASTUPDATEBY" value="~[x:username;firstlast]">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<b>Enter start/end dates for this accommodation?</b>&nbsp;&nbsp;<input type="checkbox" id="startenddates">
+				</td>
+			</tr>
+			<tr style="display:none;" id="trstartdate">
+				<td class="bold">Start Date:</td>
+				<td>
+					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]STARTDATE" value="" size="12" id="startdate">&nbsp;&nbsp;<a class="button" id="CopyDates">Copy Plan Start/End Dates</a>
+					<input type="hidden" value="~([STUDENTS.U_MISPED_ACCOMMODATIONS]START_504)" id="Start504">
+				</td>
+			</tr>
+			<tr style="display:none;" id="trenddate">
+				<td class="bold">End Date:</td>
+				<td>
+					<input type="text" class="psDateWidget" name="[U_MISPED_ACCOMMODATIONS]ENDDATE" value="" size="12" id="enddate">
+					<input type="hidden" value="~([STUDENTS.U_MISPED_ACCOMMODATIONS]END_504)" id="End504">
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Condition:</td>
+				<td>
+					<textarea id="condition" name="[U_MISPED_ACCOMMODATIONS]CONDITION" rows="4" cols="80" required></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Frequency:</td>
+				<td>
+					<input type="text" id="frequency" name="[U_MISPED_ACCOMMODATIONS]FREQUENCY" value="" size="40" required>
+				</td>
+			</tr>
+			<tr>
+				<td class="bold">Location:</td>
+				<td>
+					<input type="text" id="location" name="[U_MISPED_ACCOMMODATIONS]LOCATION" value="" size="40" required>
+				</td>
+			</tr>
+		</table>
 
 
       <div class="button-row">
